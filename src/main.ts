@@ -145,7 +145,12 @@ function render(): void {
   document.querySelector("#add-btn")?.addEventListener("click", () => openDialog("add"));
   document.querySelector("#close-dialog")?.addEventListener("click", closeDialog);
   document.querySelector("#cancel-btn")?.addEventListener("click", closeDialog);
-  document.querySelector("#task-form")?.addEventListener("submit", submitTask);
+  const taskForm = document.querySelector<HTMLFormElement>("#task-form");
+
+taskForm?.addEventListener("submit", (event: Event) => {
+  event.preventDefault();
+  submitTask(event as SubmitEvent);
+});
   document.querySelectorAll<HTMLButtonElement>("[data-filter]").forEach((button) => {
     button.addEventListener("click", () => {
       currentFilter = button.dataset.filter as typeof currentFilter;
